@@ -11,7 +11,7 @@ public interface FilesPrio<T> {
 	public int getMaxPrio();
 	public int getSizePrio(int i);
 	// \pre : getSizePrio(i) > 0
-	public int getPrio(int i);
+	public T getPrio(int i);
 	
 	// \pre : getSize() > 0
 	public T getElem();
@@ -56,8 +56,18 @@ public interface FilesPrio<T> {
 	public void put(T e);
 	
 	// \pre getSizePrio(i) > 0
+	
+	// \pre sizePrio(P,i)>1 =) activePrios(removePrio(P,i)) = activePrios(P)
+			/*sizePrio(P,i)=1 =) activePrios(removePrio(P,i)) = activePrios(P) nfig
+			sizePrio(removePrio(P,i),i) = sizePrio(P,i) - 1
+			8j 2 activePrios(P)nfig, sizePrio(removePrio(P,i),j) = sizePrio(P,j)
+			8k 2 [1::sizePrio(P,i)-1], elemPrio(removePrio(P,i),i,k) = elemPrio(P,i,k)
+			8i 2 activePrios(P)nfig, 8k 2 [1::sizePrio(P,j)], elemPrio(removePrio(P,i),j,k) = elemPrio(P,j,k)
+			*/
+	// \pre getSizePrio(i) > 1 == getActivePrio(removePro(i)) = activePrios()		
 	public void removePrio(int i);
 	
 	// \pre getSize(i) > 0
+	// \pre remove(P) = removePrio(getMaxPrio())
 	public void remove();
 }

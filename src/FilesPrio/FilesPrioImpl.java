@@ -17,7 +17,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 
 	@Override
 	public boolean isEmpty() {
-		return map.isEmpty();
+		return this.getSize() == 0;
 	}
 
 	@Override
@@ -27,7 +27,8 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 
 	@Override
 	public boolean isActive(int i) {
-		return (i == getSize()-1); 
+		Integer key = new Integer(i);
+		return getActivePrios().contains(key); 
 	}
 
 	@Override
@@ -53,19 +54,18 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	}
 
 	@Override
-	public int getPrio(int i) {
-		return getMaxPrio()
+	public T getPrio(int i) {
+		return getElemPrio(i, 0);
 	}
 
 	@Override
 	public T getElem() {
-		return map.get(getMaxPrio()).removeFirst();
+		return map.get(getMaxPrio()).getFirst();
 	}
 
 	@Override
 	public T getElemPrio(int i, int k) {
-		// TODO Auto-generated method stub
-		return null;
+		return map.get(i).get(k);
 	}
 
 	@Override
@@ -74,31 +74,49 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	}
 
 	@Override
-	public void putPrio(int i, T e) throws FilePrioError {
-		/*if(i == 0)
-			throw new FilePrioError("Mauvaise valeur pour i");
-		else if(e==null)
-			throw new FilePrioError("Elément non défini");*/
-		Integer key = new Integer(i);
-		
-	}
+    public void putPrio(int i, T e){
+        /*if(i == 0)
+            throw new FilePrioError("Mauvaise valeur pour i");
+        else if(e==null)
+            throw new FilePrioError("Elï¿½ment non dï¿½fini");*/
+        
+        if(this.isActive(i))
+        {
+            map.get(Integer.valueOf(i)).add(e);
+        }
+        else
+        {
+            LinkedList<T> list = new LinkedList<T>();
+            list.add(e);
+            map.put(Integer.valueOf(i),list);
+        }
+    }
 
-	@Override
-	public void put(T e) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void put(T e) {
+        // TODO Auto-generated method stub
+        /*if(e !=null)
+        {*/
+            this.putPrio(0,e);
+        //}
+    }
 
-	@Override
-	public void removePrio(int i) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void removePrio(int i) {
+        // TODO Auto-generated method stub
+        /*if(getSizePrio(i)>0)
+        {*/
+        if(this.isActive(i))
+            map.remove(Integer.valueOf(i));
+        //}
+    }
 
-	@Override
-	public void remove() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void remove() {
+        // TODO Auto-generated method stub
+        for (Integer key : map.keySet()) {
+            removePrio(key.intValue());
+        }
+    }
 
 }
