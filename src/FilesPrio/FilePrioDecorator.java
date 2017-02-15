@@ -4,7 +4,7 @@ import java.util.Set;
 
 public abstract class FilePrioDecorator<T> implements FilesPrio<T>{
 	
-	private FilesPrio<T> delegate;
+	protected FilesPrio<T> delegate;
 	
 	public FilePrioDecorator(FilesPrio<T> file){
 		this.delegate = file;

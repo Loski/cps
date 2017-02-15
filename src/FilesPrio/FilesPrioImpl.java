@@ -12,7 +12,11 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	
 	@Override
 	public int getSize() {
-		return map.size();
+		int size = 0;
+		for(LinkedList<T> list: map.values()){
+			size+= list.size();
+		}
+		return size;
 	}
 
 	@Override
@@ -27,8 +31,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 
 	@Override
 	public boolean isActive(int i) {
-		Integer key = new Integer(i);
-		return getActivePrios().contains(key); 
+		return getMaxPrio() == i;
 	}
 
 	@Override
