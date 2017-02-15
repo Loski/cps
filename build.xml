@@ -1,4 +1,4 @@
-<project name="maleva" default="compile" basedir=".">
+<project name="FilesPrio" default="compile" basedir=".">
     <description>
         The build file for the Tamago example Remocar
     </description>
@@ -26,14 +26,14 @@
   <target name="run" depends="compile"
           description="run examples">
     <!--<echo>================ Run Maleva simulator ================</echo>-->
-    <java classname="filesPrio.main" classpath="${build}">
+    <java classname="FilesPrio.FilesPrioMain" classpath="${build}">
     </java>
   </target>
 
   <target name="dist" depends="init,clean"
         description="Generer la distribution" >
     <!-- tout mettre dans l'archive -->
-    <jar basedir="." jarfile="../TME3-FilesPrio-${nom1}-${nom2}-${DSTAMP}.jar" />
+    <jar basedir="." jarfile="../TME3-FilesPrio-${nom1}-${nom2}.jar" />
   </target>
 
   <target name="clean"

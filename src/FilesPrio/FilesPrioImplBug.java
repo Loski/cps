@@ -81,7 +81,7 @@ public class FilesPrioImplBug<T> implements FilesPrio<T> {
         /*if(i == 0)
             throw new FilePrioError("Mauvaise valeur pour i");
         else if(e==null)
-            throw new FilePrioError("El�ment non d�fini");*/
+            throw new FilePrioError("Elément non défini");*/
         
         if(map.get(Integer.valueOf(i+1))!=null)
         {

@@ -27,14 +27,14 @@ public class FilePrioContract<T> extends FilePrioDecorator<T>{
 		boolean check = this.isEmpty();
 		boolean check2 = this.getSize() == 0;
 		if(check != check2)
-			throw new FilePrioError("IsEmpty => getSize différents");
+			throw new FilePrioError("IsEmpty => getSize diffÃ©rents");
 	}
 	
 	public void checkActive(Set<Integer> keys) throws Exception{
 		for(Integer i: keys){
 			if(isActive(i.intValue())){
 				if(!getActivePrios().contains(i))
-					throw new Exception("Problème de priorité");
+					throw new Exception("Problï¿½me de prioritÃ©");
 			}
 		}
 	}
