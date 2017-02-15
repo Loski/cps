@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-public class FilesPrioImpl<T> implements FilesPrio<T> {
+public class FilesPrioImplBug<T> implements FilesPrio<T> {
 
 	private HashMap<Integer, LinkedList<T>> map;
 	
@@ -83,15 +83,15 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
         else if(e==null)
             throw new FilePrioError("El�ment non d�fini");*/
         
-        if(map.get(Integer.valueOf(i))!=null)
+        if(map.get(Integer.valueOf(i+1))!=null)
         {
-            map.get(Integer.valueOf(i)).add(e);
+            map.get(Integer.valueOf(i+1)).add(e);
         }
         else
         {
             LinkedList<T> list = new LinkedList<T>();
             list.add(e);
-            map.put(Integer.valueOf(i),list);
+            map.put(Integer.valueOf(i+1),list);
         }
     }
 
@@ -100,7 +100,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
         // TODO Auto-generated method stub
         /*if(e !=null)
         {*/
-            this.putPrio(0,e);
+            this.putPrio(5,e);
         //}
     }
 
@@ -109,8 +109,8 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
         // TODO Auto-generated method stub
         /*if(getSizePrio(i)>0)
         {*/
-        if(map.get(Integer.valueOf(i))!=null)
-            map.remove(Integer.valueOf(i));
+        if(map.get(Integer.valueOf(i+1))!=null)
+            map.remove(Integer.valueOf(i+1));
         //}
     }
 
@@ -118,7 +118,8 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
     public void remove() {
         // TODO Auto-generated method stub
         for (Integer key : map.keySet()) {
-            removePrio(key.intValue());
+        	if(key.intValue()>2)
+        		removePrio(key.intValue());
         }
     }
 
