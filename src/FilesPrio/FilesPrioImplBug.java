@@ -109,18 +109,19 @@ public class FilesPrioImplBug<T> implements FilesPrio<T> {
         // TODO Auto-generated method stub
         /*if(getSizePrio(i)>0)
         {*/
-        if(map.get(Integer.valueOf(i+1))!=null)
-            map.remove(Integer.valueOf(i+1));
+    	LinkedList<T> list = map.get(Integer.valueOf(i));
+        if(list!=null)
+        {
+        	list.removeLast();
+        }
         //}
     }
 
     @Override
     public void remove() {
         // TODO Auto-generated method stub
-        for (Integer key : map.keySet()) {
-        	if(key.intValue()>2)
-        		removePrio(key.intValue());
-        }
+    	int current =  0;
+        map.remove(Integer.valueOf(current));
     }
 
 }

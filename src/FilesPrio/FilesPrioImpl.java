@@ -81,7 +81,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
         /*if(i == 0)
             throw new FilePrioError("Mauvaise valeur pour i");
         else if(e==null)
-            throw new FilePrioError("El�ment non d�fini");*/
+            throw new FilePrioError("Elément non défini");*/
         
         if(map.get(Integer.valueOf(i))!=null)
         {
@@ -109,17 +109,22 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
         // TODO Auto-generated method stub
         /*if(getSizePrio(i)>0)
         {*/
-        if(map.get(Integer.valueOf(i))!=null)
-            map.remove(Integer.valueOf(i));
+    	LinkedList<T> list = map.get(Integer.valueOf(i));
+        if(list!=null)
+        {
+        	if(list.size()==1)
+        		map.remove(Integer.valueOf(i));
+        	else
+        		list.removeFirst();
+        }
         //}
     }
 
     @Override
     public void remove() {
         // TODO Auto-generated method stub
-        for (Integer key : map.keySet()) {
-            removePrio(key.intValue());
-        }
+    	int current =  this.getMaxPrio();
+        map.remove(Integer.valueOf(current));
     }
 
 }
