@@ -44,7 +44,7 @@ public interface FilesPrio<T> {
 	
 	// \pre: i > 0 && e != null
 	// \post: (not isActive(i) ) \_union (getActivePrios() == getActivePrios()@pre))
-	// \post  (not isActive(i) ) \_union (getActivePrios() == getActivePrios()@pre) \_union {i})
+	// \post  (isActive(i) ) \_union (getActivePrios() == getActivePrios()@pre) \_union {i})
 	// \post: (not getSizePrio()) \_union getSizePrio()@pre +1
 	// \post: 
 	// \post: \forall k \in [2,getSizePrio(i)+1] {getElem(putPrio(i,e),j,k) = elemPrio(j,k)}

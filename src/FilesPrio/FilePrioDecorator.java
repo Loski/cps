@@ -9,7 +9,7 @@ public abstract class FilePrioDecorator<T> implements FilesPrio<T>{
 	public FilePrioDecorator(FilesPrio<T> file){
 		this.delegate = file;
 	}
-
+	
 	@Override
 	public int getSize() {
 		return delegate.getSize();

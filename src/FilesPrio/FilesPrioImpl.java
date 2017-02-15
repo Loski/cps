@@ -18,7 +18,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 		}
 		return size;
 	}
-
+	
 	@Override
 	public boolean isEmpty() {
 		return this.getSize() == 0;
@@ -78,10 +78,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 
 	@Override
     public void putPrio(int i, T e){
-        /*if(i == 0)
-            throw new FilePrioError("Mauvaise valeur pour i");
-        else if(e==null)
-            throw new FilePrioError("El�ment non d�fini");*/
+
         
         if(map.get(Integer.valueOf(i))!=null)
         {
@@ -121,5 +118,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
             removePrio(key.intValue());
         }
     }
+    
+    
 
 }
