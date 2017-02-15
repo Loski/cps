@@ -27,7 +27,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 
 	@Override
 	public boolean isActive(int i) {
-		return (i == 0); 
+		return (i == getSize()-1); 
 	}
 
 	@Override
@@ -35,19 +35,19 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 		Set<Integer> key = getActivePrios();
 		if(key.isEmpty())
 			return -1;
-		int max = Integer.MAX_VALUE;
+		int min = Integer.MIN_VALUE;
 		for(Integer i:key){
-			if(i < max)
-				max = i;
+			if(i > min)
+				min = i;
 		}
-		return max;
+		return min;
 	}
 
 	@Override
 	public int getSizePrio(int i) {
 		Integer key = new Integer(i);
 		Set<Integer> keys = getActivePrios();
-		if(keys.contains(key))
+		if(!keys.contains(key))
 			return 0;
 		return map.get(key).size();
 	}
