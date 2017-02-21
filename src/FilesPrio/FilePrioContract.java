@@ -117,4 +117,20 @@ public class FilePrioContract<T> extends FilePrioDecorator<T>{
 			exception.printStackTrace();
 		}	
 	}
+	public void put(T e){
+		
+	}
+	
+	public void init(){
+		try{
+			super.init();
+			if(getSize()!=0){
+				throw new Exception("Mauvais init");
+			}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+			
+		}
+	}
 }
