@@ -32,8 +32,6 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 		if(!(getNbCars() == (getNbIn() + getNbOut()))){
 				Contractor.defaultContractor().invariantError("BridgeService", "Nombre de voitures incorrect");
 		}
-		
-	//	if(!(getNbIn() <= getNbOut()) ||  )
 	}
 	
 
@@ -54,7 +52,7 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 		checkInvariant();
 		if(getNbIn()!=0)
 			Contractor.defaultContractor().postconditionError("BridgeService", "init" ,"Nombre de voitures In incorrect");
-		if(getNbIn()!=0)
+		if(getNbOut()!=0)
 			Contractor.defaultContractor().postconditionError("BridgeService", "init" ,"Nombre de voitures Out incorrect");
 
 	}
@@ -157,6 +155,64 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 		if(getNbOut() != nb_out_pre  - 1){
 			Contractor.defaultContractor().postconditionError("BridgeService", "leaveOut" ,"No change of nbout in leaveOut");
 		}
+	}
+	
+	public void enter(){
+		
+        checkInvariant();
+        
+		int nb_in_pre = getNbIn();
+		int nb_out_pre = getNbOut();
+        
+        super.enter();
+        
+        checkInvariant();
+
+        if(nb_in_pre <= nb_out_pre)
+        {
+        	if(nb_in_pre+1!=getNbIn())
+        		Contractor.defaultContractor().postconditionError("BridgeService", "enter", "No change of nbIn in Enter function");   
+   
+        	if(nb_out_pre!=getNbOut())
+        		Contractor.defaultContractor().postconditionError("BridgeService", "enter", "Change of value nbOut in Enter function");   
+        }
+        else
+        {
+        	if(nb_out_pre+1!=getNbOut())
+        		Contractor.defaultContractor().postconditionError("BridgeService", "enter", "No change of nbOut in Enter function");   
+   
+        	if(nb_in_pre!=getNbIn())
+        		Contractor.defaultContractor().postconditionError("BridgeService", "enter", "Change of value nbIn in Enter function"); 
+        }
+        
+	}
+	
+	public void leave()
+	{
+        checkInvariant();
+        
+		int nb_in_pre = getNbIn();
+		int nb_out_pre = getNbOut();
+        
+        super.leave();
+        
+        checkInvariant();
+        if(nb_out_pre >= nb_in_pre)
+        {
+        	if(nb_out_pre-1!=getNbOut())
+        		Contractor.defaultContractor().postconditionError("BridgeService", "leave", "No change of nbOut in Leave function");   
+   
+        	if(nb_in_pre!=getNbIn())
+        		Contractor.defaultContractor().postconditionError("BridgeService", "leave", "Change of value nbIn in Leave function");   
+        }
+        else
+        {
+        	if(nb_in_pre-1!=getNbIn())
+        		Contractor.defaultContractor().postconditionError("BridgeService", "leave", "No change of nbIn in Leave function");   
+   
+        	if(nb_out_pre!=getNbOut())
+        		Contractor.defaultContractor().postconditionError("BridgeService", "leave", "Change of value nbOut in Leave function"); 
+        }
 	}
 	
 }
