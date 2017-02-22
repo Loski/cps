@@ -53,6 +53,10 @@ public class BridgeSimulatorMain2 {
 		outIslandSensor.validateComponent();
 		inMainlandSensor.validateComponent();
 		outMainlandSensor.validateComponent();
+		
+		inIslandLight.switchOn();
+		inMainlandLight.switchOn();
+		inMainlandLight.changeRed();
 				
 		// simulation
 		simulator.simulateRandom(100);

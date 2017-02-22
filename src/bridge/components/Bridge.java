@@ -99,17 +99,25 @@ public class Bridge implements
 	@Override
 	public void senseCar(SensorData data) {
 		if(data.getName().equals("InIsland")) {
-			System.out.println("Bridge : New car enters from island");
-			enterIn();
+			if(!isFull()){
+				System.out.println("Bridge : New car enters from island");
+				enterIn();
+			}
 		} else if(data.getName().equals("OutIsland")) {
-			System.out.println("Bridge : Car leaves to island");
-			leaveIn();
+				if(getNbIn() > 0){
+					System.out.println("Bridge : Car leaves to island");
+					leaveIn();
+				}
 		} else if(data.getName().equals("InMainland")) {
-			System.out.println("Bridge : New car enters from mainland");
-			enterOut();
+			if(!isFull()){
+				System.out.println("Bridge : New car enters from mainland");
+				enterOut();
+			}
 		} else if(data.getName().equals("OutMainland")) {
-			System.out.println("Bridge : Car leaves to mainland");
-			leaveOut();
+			if(getNbOut() > 0){
+				System.out.println("Bridge : Car leaves to mainland");
+				leaveOut();
+			}
 		}
 		
 		System.out.println("Bridge : nbCars = "+getNbCars());

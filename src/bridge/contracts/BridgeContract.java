@@ -24,6 +24,7 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 	}
 	
 	public void checkInvariant() {
+		super.checkInvariant();
 		if(getDelegate().getNbIn() < 0)
 			Contractor.defaultContractor().invariantError("BridgeService", "Nombre de voitures In incorrect (<0)");
 		if(getDelegate().getNbOut() < 0)
@@ -33,7 +34,6 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 		}
 		
 	//	if(!(getNbIn() <= getNbOut()) ||  )
-		super.checkInvariant();
 	}
 	
 
@@ -90,7 +90,7 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 	@Override
 	public void leaveIn() {
 		if(!(getNbIn() > 0))
-			Contractor.defaultContractor().preconditionError("BridgeService", "LeaveIn" ,"No cars available to go out");
+			Contractor.defaultContractor().preconditionError("BridgeService", "LeaveIn" ,"No cars available to go out island");
 		checkInvariant();
 		
 		int nb_car_pre = getNbCars();
@@ -129,7 +129,7 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 			Contractor.defaultContractor().postconditionError("BridgeService", "enterOut" ,"Nombre de voitures incorrect");
 		}
 		if(getNbIn() != nb_in_pre)
-			Contractor.defaultContractor().postconditionError("BridgeService", "enterOut" ,"Nombre de voitures In incorrect");
+			Contractor.defaultContractor().postconditionError("BridgeService", "enterOut" ,"Nombre de voitures In incorrect" + getNbIn() + nb_in_pre);
 		if(getNbOut() != nb_out_pre +1){
 			Contractor.defaultContractor().postconditionError("BridgeService", "enterOut" ,"No change of nbout in Enterout");
 		}
@@ -137,7 +137,7 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 
 	@Override
 	public void leaveOut() {
-		if(!(getNbIn() > 0))
+		if(!(getNbOut() > 0))
 			Contractor.defaultContractor().preconditionError("BridgeService", "LeaveOut" ,"No cars available to go out");
 		checkInvariant();
 		
@@ -149,8 +149,8 @@ public class BridgeContract extends LimitedRoadContract implements BridgeService
 		
 		checkInvariant();
 		
-		if(getNbCars() != nb_car_pre + 1){
-			Contractor.defaultContractor().postconditionError("BridgeService", "leaveOut" ,"Nombre de voitures incorrect");
+		if(getNbCars() != nb_car_pre - 1){
+			Contractor.defaultContractor().postconditionError("BridgeService", "leaveOut" ,"Nombre de voitures incorrect ; p");
 		}
 		if(getNbIn() != nb_in_pre)
 			Contractor.defaultContractor().postconditionError("BridgeService", "leaveOut" ,"Nombre de voitures In incorrect");

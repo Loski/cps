@@ -75,6 +75,10 @@ public class BridgeController implements
 
 	@Override
 	public boolean canLeave() {
+		/*if(islandLight.isOn() && islandLight.isGreen())
+			return bridge.getNbIn() > 0;
+		return bridge.getNbOut() > 0;
+		*/
 		return bridge.getNbCars() > 0;
 	}
 	

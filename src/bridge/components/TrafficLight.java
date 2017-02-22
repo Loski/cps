@@ -19,7 +19,7 @@ public class TrafficLight implements
 	public void init() {
 		on = false;
 		green = false;
-		red = true;
+		red = false;
 	}
 
 	
@@ -31,8 +31,8 @@ public class TrafficLight implements
 	@Override
 	public void switchOn() {
 		on = true;
-		red = true;
-		green = false;
+		red = false;
+		green = true;
 	}
 
 	@Override

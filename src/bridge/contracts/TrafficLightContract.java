@@ -32,12 +32,14 @@ public class TrafficLightContract extends LightContract implements TrafficLightS
 	}
 
 	public void checkInvariant() {
-		// puis vérifier au-dessus
+		// puis vï¿½rifier au-dessus
 		super.checkInvariant();
 		// inv'
-		boolean inv = isOn() && ((isGreen()==true && isRed()==false) || (isGreen()==false && isRed()==true));
-		if(!inv) {
-			Contractor.defaultContractor().invariantError("TrafficLightService","The traffic light has two distinct colors !");
+		if(isOn()){
+			boolean inv = ((isGreen()==true && isRed()==false) || (isGreen()==false && isRed()==true));
+			if(!inv) {
+				Contractor.defaultContractor().invariantError("TrafficLightService","The traffic light has two distinct colors !");
+			}
 		}
 	}
 	
@@ -115,7 +117,7 @@ public class TrafficLightContract extends LightContract implements TrafficLightS
 			Contractor.defaultContractor().postconditionError("TrafficLightService","changeRed","The light should be still on");
 		}
 		if(!(isRed() == true)) {
-			Contractor.defaultContractor().postconditionError("TrafficLightService","changeRed","The light has not turned redŒ");
+			Contractor.defaultContractor().postconditionError("TrafficLightService","changeRed","The light has not turned redï¿½");
 		}		
 		if(!(isGreen() == false)) {
 			Contractor.defaultContractor().postconditionError("TrafficLightService","changeRed","The light is still green");
