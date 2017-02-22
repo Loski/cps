@@ -160,6 +160,26 @@ public class BridgeComponentContract extends Bridge
 		}
 	}
 	
+	public void enter() {
+		if(!operatorCall) {
+			operatorCall = true;
+			bridgeContract.enter();
+			operatorCall = false;
+		} else {
+			super.enter();
+		}
+	}
+
+	public void leave() {
+		if(!operatorCall) {
+			operatorCall = true;
+			bridgeContract.leave();
+			operatorCall = false;
+		} else {
+			super.leave();
+		}
+	}
+	
 
 	
 }
