@@ -13,7 +13,7 @@ public class LimitedRoadContract extends LimitedRoadDecorator {
 		if(!(isFull() == (getNbCars() == getLimit())))
 			Contractor.defaultContractor().invariantError("LimitedRoadService", "isFull bug");
 		if(!(getNbCars() <= getLimit()))
-			Contractor.defaultContractor().invariantError("LimitedRoadService", "Limite de voiture dépassée");
+			Contractor.defaultContractor().invariantError("LimitedRoadService", "Limite de voiture d?ass?");
 	}
 	
 	@Override

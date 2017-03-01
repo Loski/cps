@@ -7,8 +7,8 @@
   <property name="build" location="build"/>
 
   <!-- METTRE ICI LE NOM DU BINOME -->
-  <property name="nom1" value="XXXXX"/>
-  <property name="nom2" value="YYYYY"/>
+  <property name="nom1" value="LAVASTE"/>
+  <property name="nom2" value="LAFONTAINE"/>
 
   <target name="init">
     <!-- Create the time stamp -->
@@ -39,11 +39,10 @@
     </java>
   </target>
 
-  <target name="dist" depends="init,clean"
+  <target name="dist" depends="init, clean"
         description="Generer la distribution" >
     <!-- tout mettre dans l'archive -->
-    <jar basedir=".." jarfile="../TME4-Bridge-${nom1}-${nom2}-${DSTAMP}.jar"
-    includes="TME4-Bridge/**/*" excludes="**/CVS"/>
+    <jar basedir="." jarfile="../TME4-Bridge-${nom1}-${nom2}-${DSTAMP}.jar">
   </target>
 
   <target name="clean"
