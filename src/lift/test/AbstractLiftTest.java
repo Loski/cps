@@ -219,6 +219,97 @@ public abstract class AbstractLiftTest {
 			assertEquals(cmd, lift.getCommands());
 		}
 	}
-	
 
+	@Test
+	public void testDoorHackClosed()
+	{
+		lift.init(2,  10);
+				
+		lift.closeDoor();
+		DoorStatus doorStatusPre = lift.getDoorStatus();
+		lift.selectLevel(7);
+		lift.doorAck();
+		
+		assertTrue(!(doorStatusPre == DoorStatus.CLOSING) || DoorStatus.CLOSED == lift.getDoorStatus());
+	}
+	
+	@Test
+	public void testDoorHackOpened()
+	{
+		lift.init(2,  10);
+		
+		lift.closeDoor();
+		lift.selectLevel(3);
+		lift.doorAck();
+		lift.beginMoveUp();
+		lift.stepMoveUp();
+		lift.endMoveUp();
+		lift.openDoor();
+		
+		DoorStatus doorStatusPre = lift.getDoorStatus();
+		
+		lift.doorAck();
+		assertTrue(!(doorStatusPre == DoorStatus.OPENING) || DoorStatus.OPENED == lift.getDoorStatus());
+	}
+	
+	@Test
+	public void testDoorHackStandByUp()
+	{
+		lift.init(2,  10);
+		
+		lift.closeDoor();
+		lift.selectLevel(3);
+		lift.doorAck();
+		
+		LiftStatus LiftStatusPre = lift.getLiftStatus();
+		
+		lift.doorAck();
+		
+		assertTrue(!(LiftStatusPre == LiftStatus.IDLE && lift.getCommands().getNbUpCommands()>0) || LiftStatus.STANDBY_UP == lift.getLiftStatus());
+	}
+	
+	@Test
+	public void testDoorHackStandByDown()
+	{
+		lift.init(2,  10);
+		
+		/* On monte à l'étage 7*/
+		lift.closeDoor();
+		lift.selectLevel(7);
+		lift.doorAck();
+		lift.beginMoveUp();
+		for(int i=lift.getLevel().intValue();i<7;i++)
+			lift.stepMoveUp();
+		lift.endMoveUp();
+		lift.openDoor();
+		lift.doorAck();
+		/* Arrivé à l'étage 7 */
+		
+		
+		lift.selectLevel(3);
+		lift.closeDoor();
+		
+		LiftStatus LiftStatusPre = lift.getLiftStatus();
+		
+		lift.doorAck();
+		
+		
+		assertTrue(!(LiftStatusPre == LiftStatus.IDLE && lift.getCommands().getNbDownCommands()>0) || LiftStatus.STANDBY_DOWN == lift.getLiftStatus());
+	}
+	
+	@Test
+	public void testDoorHackIdle()
+	{
+		lift.init(2,  10);
+		
+		lift.closeDoor();
+		
+		LiftStatus LiftStatusPre = lift.getLiftStatus();
+		lift.doorAck();
+		
+		assertTrue(!(LiftStatusPre == LiftStatus.IDLE && lift.getCommands().getNbDownCommands()==0 && lift.getCommands().getNbUpCommands()==0) || LiftStatus.IDLE == lift.getLiftStatus());
+
+		lift.openDoor();
+		lift.doorAck();
+	}
 }
