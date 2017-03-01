@@ -47,8 +47,7 @@ public class CommandsImpl implements CommandsService {
 		if (upCommands == null) {
 			if (other.upCommands != null)
 				return false;
-		} else if (!upCommands.equals(other.upCommands))
-			return false;
+		}
 		return true;
 	}
 
@@ -192,6 +191,13 @@ public class CommandsImpl implements CommandsService {
 	}
 
 
+	@Override
+	public String toString() {
+		return "CommandsImpl [upCommands=" + upCommands + ", nbUpCommands=" + nbUpCommands + ", downCommands="
+				+ downCommands + ", nbDownCommands=" + nbDownCommands + "]";
+	}
+
+
 	/* package */ class CmdEntry {
 		private int cmd;
 		private CmdEntry next;
@@ -205,15 +211,7 @@ public class CommandsImpl implements CommandsService {
 			return cmd;
 		}
 
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + getOuterType().hashCode();
-			result = prime * result + cmd;
-			result = prime * result + ((next == null) ? 0 : next.hashCode());
-			return result;
-		}
+
 
 		@Override
 		public boolean equals(Object obj) {
@@ -224,15 +222,12 @@ public class CommandsImpl implements CommandsService {
 			if (getClass() != obj.getClass())
 				return false;
 			CmdEntry other = (CmdEntry) obj;
-			if (!getOuterType().equals(other.getOuterType()))
-				return false;
 			if (cmd != other.cmd)
 				return false;
 			if (next == null) {
 				if (other.next != null)
 					return false;
-			} else if (!next.equals(other.next))
-				return false;
+			}
 			return true;
 		}
 

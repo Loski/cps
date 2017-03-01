@@ -163,22 +163,62 @@ public abstract class AbstractLiftTest {
 	}
 	
 	@Test
-	public void testSelectLevel(){
+	public void testSelectLevelUp(){
 		lift.init(2,  10);
 		CommandsImpl cmd = (CommandsImpl) lift.getCommands();
 		int level = lift.getLevel();
-		lift.selectLevel(3);
+		//test UP
+		lift.selectLevel(4);
+		test(level, cmd, 4);
+	}
+	
+	@Test
+	public void testSelectLevelEquals(){
+		lift.init(2,  10);
+		CommandsImpl cmd = (CommandsImpl) lift.getCommands();
+		int level = lift.getLevel();
+		//test Equals
+		lift.selectLevel(2);
+		test(level, cmd, 2);
+	}
+	
+	
+	@Test
+	public void testSelectLevelDown(){
+		lift.init(2,  10);
+		
+		
+		/* On monte à l'étage 7*/
+		lift.closeDoor();
+		lift.selectLevel(7);
+		lift.doorAck();
+		lift.beginMoveUp();
+		for(int i=lift.getLevel().intValue();i<7;i++)
+			lift.stepMoveUp();
+		lift.endMoveUp();
+		lift.openDoor();
+		lift.doorAck();
+		/* Arrivé à l'étage 7 */
+		//test DOWN
+		int level = lift.getLevel();
+		lift.selectLevel(4);
+		test(level, commands, 4);
+	}
+	
+	public void test(int level, CommandsService cmd, int expected_level){
 		if(level == lift.getLevel().intValue()){
 			assertEquals(cmd, lift.getCommands());
 		}
 		else if(level > lift.getLevel()){
-			cmd.addUpCommand(3);
+			cmd.addUpCommand(expected_level);
 			assertEquals(cmd, lift.getCommands());
 		}
 		else{
-			cmd.addDownCommand(5);
+			System.out.println(cmd);
+			cmd.addDownCommand(expected_level);
 			assertEquals(cmd, lift.getCommands());
 		}
-			
 	}
+	
+
 }

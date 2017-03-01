@@ -1,12 +1,12 @@
 package lift.test;
 import lift.services.LiftService;
 import liftimpl1.*;
-public class LiftTest1 extends AbstractLiftTest{
+public class LiftTest2 extends AbstractLiftTest{
 
 	@Override
 	public void beforeTests() {
-		LiftService lift = new liftimpl1.Lift1(); 
-		LiftService liftCommand = new liftimpl1.Lift1(); 
+		LiftService lift = new liftimpl2.Lift2(); 
+		LiftService liftCommand = new liftimpl2.Lift2(); 
 		this.setLift(lift);
 		lift.getCommands().init();
 		liftCommand.getCommands().init();
