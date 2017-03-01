@@ -137,7 +137,7 @@ public abstract class AbstractLiftTest {
 	}
 	
 	@Test
-	public void openDoor(){
+	public void testOpenDoor(){
 		lift.init(2,  10);
 		
 		lift.closeDoor();
@@ -152,7 +152,7 @@ public abstract class AbstractLiftTest {
 	}
 	
 	@Test
-	public void closeDoor(){
+	public void testCloseDoor(){
 		lift.init(2,  10);
 		
 		lift.selectLevel(3);
@@ -160,5 +160,25 @@ public abstract class AbstractLiftTest {
 		lift.closeDoor();
 		
 		assertEquals(DoorStatus.CLOSING,lift.getDoorStatus());
+	}
+	
+	@Test
+	public void testSelectLevel(){
+		lift.init(2,  10);
+		CommandsImpl cmd = (CommandsImpl) lift.getCommands();
+		int level = lift.getLevel();
+		lift.selectLevel(3);
+		if(level == lift.getLevel().intValue()){
+			assertEquals(cmd, lift.getCommands());
+		}
+		else if(level > lift.getLevel()){
+			cmd.addUpCommand(3);
+			assertEquals(cmd, lift.getCommands());
+		}
+		else{
+			cmd.addDownCommand(5);
+			assertEquals(cmd, lift.getCommands());
+		}
+			
 	}
 }

@@ -15,6 +15,43 @@ public class CommandsImpl implements CommandsService {
 		nbDownCommands = -1;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((downCommands == null) ? 0 : downCommands.hashCode());
+		result = prime * result + nbDownCommands;
+		result = prime * result + nbUpCommands;
+		result = prime * result + ((upCommands == null) ? 0 : upCommands.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CommandsImpl other = (CommandsImpl) obj;
+		if (downCommands == null) {
+			if (other.downCommands != null)
+				return false;
+		} else if (!downCommands.equals(other.downCommands))
+			return false;
+		if (nbDownCommands != other.nbDownCommands)
+			return false;
+		if (nbUpCommands != other.nbUpCommands)
+			return false;
+		if (upCommands == null) {
+			if (other.upCommands != null)
+				return false;
+		} else if (!upCommands.equals(other.upCommands))
+			return false;
+		return true;
+	}
+
 	public void init() {
 		upCommands = new CmdEntry(-1,null);
 		nbUpCommands = 0;
@@ -168,12 +205,47 @@ public class CommandsImpl implements CommandsService {
 			return cmd;
 		}
 
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + getOuterType().hashCode();
+			result = prime * result + cmd;
+			result = prime * result + ((next == null) ? 0 : next.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			CmdEntry other = (CmdEntry) obj;
+			if (!getOuterType().equals(other.getOuterType()))
+				return false;
+			if (cmd != other.cmd)
+				return false;
+			if (next == null) {
+				if (other.next != null)
+					return false;
+			} else if (!next.equals(other.next))
+				return false;
+			return true;
+		}
+
 		public CmdEntry getNext() {
 			return next;
 		}
 
 		private void setNext(CmdEntry next) {
 			this.next = next;
+		}
+
+		private CommandsImpl getOuterType() {
+			return CommandsImpl.this;
 		}
 
 
